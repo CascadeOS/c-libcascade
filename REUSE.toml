@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: CC0-1.0
+# SPDX-FileCopyrightText: CascadeOS Contributors
+
+version = 1
+SPDX-PackageName = "c-libcascade"
+SPDX-PackageSupplier = "CascadeOS Contributors"
+SPDX-PackageDownloadLocation = "https://github.com/CascadeOS/c-libcascade"
+
+[[annotations]]
+path = "**.md"
+precedence = "aggregate"
+SPDX-License-Identifier = "CC0-1.0"
+SPDX-FileCopyrightText = "CascadeOS Contributors"

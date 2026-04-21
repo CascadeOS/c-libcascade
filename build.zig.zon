@@ -1,0 +1,12 @@
+// SPDX-License-Identifier: CC0-1.0
+// SPDX-FileCopyrightText: CascadeOS Contributors
+
+.{
+    .name = .c_libcascade,
+
+    .version = "0.0.1",
+
+    .paths = .{""},
+
+    .fingerprint = 0xfdc1f7a4f9909129,
+}
