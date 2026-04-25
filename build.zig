@@ -4,13 +4,22 @@
 const std = @import("std");
 
 pub fn build(b: *std.Build) void {
+    const freestanding_target = blk: {
+        var target = b.standardTargetOptions(.{});
+        target.query.os_tag = .freestanding;
+        target.result.os.tag = .freestanding;
+        break :blk target;
+    };
+
     const c_libcascade = b.addLibrary(.{
         .name = "c-libcascade",
         .linkage = .static,
         .root_module = b.createModule(.{
             .root_source_file = null,
-            .target = b.standardTargetOptions(.{}),
+            .target = freestanding_target,
             .optimize = .ReleaseSmall,
+            .link_libc = false,
+            .link_libcpp = false,
             .sanitize_c = .off,
             .strip = true,
             .no_builtin = true,
