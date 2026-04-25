@@ -25,7 +25,7 @@ typedef uint64_t cascade_syscall_t;
 CASCADE_INLINE int64_t cascade_syscall0(cascade_syscall_t syscall)
 {
     int64_t ret;
-    asm volatile("syscall" : "=a"(ret) : "D"(syscall) : "memory", "rcx", "r11");
+    asm volatile("syscall" : "=a"(ret) : "a"(syscall) : "memory", "rcx", "r11");
     return ret;
 }
 
