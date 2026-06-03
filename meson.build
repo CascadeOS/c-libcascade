@@ -13,6 +13,8 @@ project(
     ],
 )
 
+install = get_option('install')
+
 c_args = [
     '-ffreestanding',
     '-fno-builtin',
@@ -31,22 +33,25 @@ header_files = files(
 )
 
 incl = include_directories('include')
-install_headers(header_files, subdir: 'cascade')
 
 libcascade = static_library(
     'cascade',
     source_files,
     include_directories: incl,
     c_args: c_args,
-    install: true,
+    install: install,
 )
 
-pkg = import('pkgconfig')
-pkg.generate(
-    libcascade,
-    name: 'cascade',
-    description: 'CascadeOS C library',
-    version: meson.project_version(),
-)
+if install
+    install_headers(header_files, subdir: 'cascade')
+
+    pkg = import('pkgconfig')
+    pkg.generate(
+        libcascade,
+        name: 'cascade',
+        description: 'CascadeOS C library',
+        version: meson.project_version(),
+    )
+endif
 
 libcascade_dep = declare_dependency(include_directories: incl, link_with: libcascade)
