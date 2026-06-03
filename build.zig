@@ -4,6 +4,7 @@
 const std = @import("std");
 
 pub fn build(b: *std.Build) void {
+    const optimize = b.standardOptimizeOption(.{ .preferred_optimize_mode = .ReleaseSafe });
     const freestanding_target = blk: {
         var target = b.standardTargetOptions(.{});
         target.query.os_tag = .freestanding;
@@ -11,25 +12,43 @@ pub fn build(b: *std.Build) void {
         break :blk target;
     };
 
-    const c_libcascade = b.addLibrary(.{
-        .name = "c-libcascade",
-        .linkage = .static,
-        .root_module = b.createModule(.{
-            .root_source_file = null,
-            .target = freestanding_target,
-            .optimize = .ReleaseSmall,
-            .link_libc = false,
-            .link_libcpp = false,
-            .sanitize_c = .off,
-            .strip = true,
-            .no_builtin = true,
-        }),
+    const include_directory = b.path("include");
+
+    const libcascade_module = b.createModule(.{
+        .root_source_file = null,
+        .target = freestanding_target,
+        .optimize = optimize,
+        .link_libc = false,
+        .link_libcpp = false,
+        .sanitize_c = .off,
+        .strip = false,
+        .no_builtin = true,
+        .stack_protector = false,
+        .stack_check = false,
+        .pic = true,
     });
-    c_libcascade.installHeadersDirectory(b.path("include"), "", .{});
+    libcascade_module.addIncludePath(include_directory);
+    libcascade_module.addCSourceFiles(.{
+        .files = &.{
+            "src/thread.c",
+        },
+        .flags = &.{
+            "-ffreestanding",
+            "-fno-builtin",
+            "-fno-stack-protector",
+            "-Wall",
+            "-Wextra",
+            "-Wpedantic",
+            "-Werror",
+            "-std=c99",
+        },
+    });
 
-    // TODO: needing an empty C file to create a header-only library is annoying
-    // TODO: in addition a empty library file is actually produced and passed to the dependants linker :(
-    c_libcascade.root_module.addCSourceFile(.{ .file = b.addWriteFiles().add("empty.c", "") });
-
+    const c_libcascade = b.addLibrary(.{
+        .name = "cascade",
+        .linkage = .static,
+        .root_module = libcascade_module,
+    });
+    c_libcascade.installHeadersDirectory(include_directory, "", .{});
     b.installArtifact(c_libcascade);
 }
