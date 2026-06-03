@@ -48,7 +48,7 @@ if install
     pkg = import('pkgconfig')
     pkg.generate(
         libcascade,
-        name: 'cascade',
+        name: 'libcascade',
         description: 'CascadeOS C library',
         version: meson.project_version(),
     )
