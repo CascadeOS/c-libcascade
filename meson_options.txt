@@ -1,1 +1,4 @@
+# SPDX-License-Identifier: 0BSD
+# SPDX-FileCopyrightText: CascadeOS Contributors
+
 option('install', type: 'boolean', value: true)
