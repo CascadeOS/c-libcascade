@@ -20,6 +20,17 @@ c_args = [
     '-fno-builtin',
     '-fno-stack-protector',
     '-fno-stack-check',
+    '-pedantic',
+    '-Wunused-parameter',
+    '-Wunused-result',
+    '-Wstrict-prototypes',
+    '-Wmissing-prototypes',
+    '-Wswitch-default',
+    '-Wswitch-enum',
+    '-Wconversion',
+    '-Wdouble-promotion',
+    '-Wundef',
+    '-Wunused',
 ]
 
 source_files = files(
