@@ -7,5 +7,5 @@
 
 CASCADE_NORETURN void cascade_exit_current_thread(void) {
     (void)cascade_syscall0(CASCADE_SYSCALL_EXIT_CURRENT_THREAD);
-    __builtin_unreachable();
+    CASCADE_UNREACHABLE();
 }
