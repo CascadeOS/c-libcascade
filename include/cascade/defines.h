@@ -52,4 +52,25 @@
     #error "CASCADE_ALIGNOF: no alignof support on this compiler"
 #endif
 
+#define CASCADE_CONCAT_IMPL(a, b) a##b
+#define CASCADE_CONCAT(a, b) CASCADE_CONCAT_IMPL(a, b)
+
+#ifdef __COUNTER__
+    #define CASCADE_UID __COUNTER__
+#else
+    #define CASCADE_UID __LINE__
+#endif
+
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 202311L)
+    #define CASCADE_STATIC_ASSERT(expr, msg) static_assert(expr, msg)
+#elif defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+    #define CASCADE_STATIC_ASSERT(expr, msg) _Static_assert(expr, msg)
+#elif defined(__cplusplus) && (__cplusplus >= 201103L)
+    #define CASCADE_STATIC_ASSERT(expr, msg) static_assert(expr, msg)
+#else
+    /* Compilers will throw an "array size is negative" error if expr is false.
+       'msg' is discarded in this fallback since C99 cannot output custom errors here. */
+    #define CASCADE_STATIC_ASSERT(expr, msg) typedef char CASCADE_CONCAT(cascade_, CASCADE_UID)[(expr) ? 1 : -1]
+#endif
+
 #endif // CASCADE_DEFINE_H
