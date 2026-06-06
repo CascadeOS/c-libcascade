@@ -3,3 +3,6 @@
 
 *.zig text eol=lf
 *.zon text eol=lf
+
+*.h linguist-language=C
+*.c linguist-language=C
