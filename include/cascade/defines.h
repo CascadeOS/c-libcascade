@@ -44,4 +44,12 @@
     #define CASCADE_UNREACHABLE() CASCADE_TRAP()
 #endif
 
+#if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 201112L)
+    #define CASCADE_ALIGNOF(type) _Alignof(type)
+#elif defined(__clang__) || defined(__GNUC__)
+    #define CASCADE_ALIGNOF(type) __alignof__(type)
+#else
+    #error "CASCADE_ALIGNOF: no alignof support on this compiler"
+#endif
+
 #endif // CASCADE_DEFINE_H
