@@ -38,7 +38,7 @@ source_files = files(
 )
 
 header_files = files(
-    'include/cascade/defines.h',
+    'include/cascade/internal/defines.h',
     'include/cascade/syscall.h',
     'include/cascade/thread.h',
 )

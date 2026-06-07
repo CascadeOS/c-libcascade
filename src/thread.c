@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: 0BSD
 // SPDX-FileCopyrightText: CascadeOS Contributors
 
-#include <cascade/defines.h>
+#include <cascade/internal/defines.h>
+
 #include <cascade/syscall.h>
 #include <cascade/thread.h>
 
-CASCADE_NORETURN void cascade_exit_current_thread(void) {
-    (void)cascade_syscall0(CASCADE_SYSCALL_EXIT_CURRENT_THREAD);
-    CASCADE_UNREACHABLE();
+_CASCADE_NORETURN void cascade_thread_exit_current(void) {
+    (void)cascade_syscall0(CASCADE_SYSCALL_THREAD_EXIT_CURRENT);
+    _CASCADE_UNREACHABLE();
 }

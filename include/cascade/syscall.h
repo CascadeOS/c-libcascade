@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: 0BSD
 // SPDX-FileCopyrightText: CascadeOS Contributors
 
-#ifndef CASCADE_SYSCALL_H
-#define CASCADE_SYSCALL_H
+#ifndef _CASCADE_SYSCALL_H
+#define _CASCADE_SYSCALL_H
 
 #include <stdint.h>
 
-#include <cascade/defines.h>
+#include <cascade/internal/defines.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -14,11 +14,11 @@ extern "C" {
 
 typedef uint64_t cascade_syscall_t;
 
-#define CASCADE_SYSCALL_EXIT_CURRENT_THREAD UINT64_C(0)
+#define CASCADE_SYSCALL_THREAD_EXIT_CURRENT UINT64_C(0)
 
 #if defined(__x86_64__)
 
-CASCADE_INLINE int64_t cascade_syscall0(cascade_syscall_t syscall)
+_CASCADE_INLINE int64_t cascade_syscall0(cascade_syscall_t syscall)
 {
     int64_t ret;
     __asm__ volatile("syscall" : "=a"(ret) : "a"(syscall) : "memory", "rcx", "r11");
@@ -43,4 +43,4 @@ CASCADE_INLINE int64_t cascade_syscall0(cascade_syscall_t syscall)
 }
 #endif
 
-#endif // CASCADE_SYSCALL_H
+#endif // _CASCADE_SYSCALL_H
