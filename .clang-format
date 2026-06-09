@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: 0BSD
+# SPDX-FileCopyrightText: CascadeOS Contributors
+
+BasedOnStyle: LLVM
+
+ColumnLimit: 100
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+AlignAfterOpenBracket: BlockIndent
+BreakAfterReturnType: Automatic
+BreakBeforeBinaryOperators: NonAssignment
+
+BinPackArguments: false
+BinPackParameters: false
+
+InsertNewlineAtEOF: true

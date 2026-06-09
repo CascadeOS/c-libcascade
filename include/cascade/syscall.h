@@ -4,22 +4,20 @@
 #ifndef _CASCADE_SYSCALL_H
 #define _CASCADE_SYSCALL_H
 
+#include <cascade/internal/defines.h>
 #include <stdint.h>
 
-#include <cascade/internal/defines.h>
+typedef uint64_t cascade_syscall;
+
+#define CASCADE_SYSCALL_THREAD_EXIT_CURRENT UINT64_C(0)
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef uint64_t cascade_syscall_t;
-
-#define CASCADE_SYSCALL_THREAD_EXIT_CURRENT UINT64_C(0)
-
 #if defined(__x86_64__)
 
-_CASCADE_INLINE int64_t cascade_syscall0(cascade_syscall_t syscall)
-{
+_CASCADE_INLINE int64_t cascade_syscall0(cascade_syscall syscall) {
     int64_t ret;
     __asm__ volatile("syscall" : "=a"(ret) : "a"(syscall) : "memory", "rcx", "r11");
     return ret;
