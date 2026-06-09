@@ -37,12 +37,6 @@ source_files = files(
     'src/thread.c',
 )
 
-header_files = files(
-    'include/cascade/internal/defines.h',
-    'include/cascade/syscall.h',
-    'include/cascade/thread.h',
-)
-
 incl = include_directories('include')
 
 libcascade = static_library(
@@ -54,7 +48,19 @@ libcascade = static_library(
 )
 
 if install
-    install_headers(header_files, subdir: 'cascade')
+    install_headers(
+        files(
+            'include/cascade/syscall.h',
+            'include/cascade/thread.h',
+        ),
+        subdir: 'cascade',
+    )
+    install_headers(
+        files(
+            'include/cascade/internal/defines.h',
+        ),
+        subdir: 'cascade/internal',
+    )
 
     pkg = import('pkgconfig')
     pkg.generate(
