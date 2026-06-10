@@ -9,7 +9,7 @@
 
 typedef uint64_t cascade_syscall;
 
-#define CASCADE_SYSCALL_THREAD_EXIT_CURRENT UINT64_C(0)
+#define CASCADE_SYSCALL_THREAD_EXIT_CURRENT ((cascade_syscall)0)
 
 #ifdef __cplusplus
 extern "C" {
