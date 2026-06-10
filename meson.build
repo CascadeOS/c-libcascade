@@ -31,6 +31,7 @@ c_args = [
     '-Wdouble-promotion',
     '-Wundef',
     '-Wunused',
+    '-Warray-bounds',
 ]
 
 source_files = files(

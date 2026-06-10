@@ -51,6 +51,7 @@ pub fn build(b: *std.Build) void {
             "-Wdouble-promotion",
             "-Wundef",
             "-Wunused",
+            "-Warray-bounds",
             "-Werror",
             "-std=c99",
         },
