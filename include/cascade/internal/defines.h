@@ -68,9 +68,6 @@
 #elif defined(__cplusplus) && (__cplusplus >= 201103L)
 #define _CASCADE_STATIC_ASSERT(expr, msg) static_assert(expr, msg)
 #else
-/* Compilers will throw an "array size is negative" error if expr is false.
-   'msg' is discarded in this fallback since C99 cannot output custom errors
-   here. */
 #define _CASCADE_STATIC_ASSERT(expr, msg)                                                          \
     typedef char _CASCADE_CONCAT(_cascade_assert_, _CASCADE_UID)[(expr) ? 1 : -1]
 #endif
