@@ -72,4 +72,12 @@
     typedef char _CASCADE_CONCAT(_cascade_assert_, _CASCADE_UID)[(expr) ? 1 : -1]
 #endif
 
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L
+#define _CASCADE_NODISCARD [[nodiscard]]
+#elif defined(__GNUC__) || defined(__clang__)
+#define _CASCADE_NODISCARD __attribute__((warn_unused_result))
+#else
+#define _CASCADE_NODISCARD
+#endif
+
 #endif // _CASCADE_DEFINE_H
