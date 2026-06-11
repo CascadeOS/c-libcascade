@@ -30,6 +30,7 @@ pub fn build(b: *std.Build) void {
     libcascade_module.addIncludePath(include_directory);
     libcascade_module.addCSourceFiles(.{
         .files = &.{
+            "src/debug.c",
             "src/thread.c",
         },
         .flags = &.{

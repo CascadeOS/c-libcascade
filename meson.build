@@ -35,6 +35,7 @@ c_args = [
 ]
 
 source_files = files(
+    'src/debug.c',
     'src/thread.c',
 )
 
@@ -51,6 +52,7 @@ libcascade = static_library(
 if install
     install_headers(
         files(
+            'include/cascade/debug.h',
             'include/cascade/syscall.h',
             'include/cascade/thread.h',
         ),
