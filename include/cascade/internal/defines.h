@@ -72,4 +72,10 @@
     typedef char _CASCADE_CONCAT(_cascade_assert_, _CASCADE_UID)[(expr) ? 1 : -1]
 #endif
 
+#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 199901L && !defined(__cplusplus)
+#define _CASCADE_ARRAY_LEN(n) static n
+#else
+#define _CASCADE_ARRAY_LEN(n)
+#endif
+
 #endif // _CASCADE_DEFINE_H

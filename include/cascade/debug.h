@@ -30,7 +30,7 @@ extern "C" {
  * @param len length of the message
  * @param buf pointer to the message
  */
-void cascade_debug_print(uint64_t len, const uint8_t buf[static len]);
+void cascade_debug_print(uint64_t len, const uint8_t buf[_CASCADE_ARRAY_LEN(len)]);
 
 #ifdef __cplusplus
 }
