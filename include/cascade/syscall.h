@@ -17,7 +17,7 @@ extern "C" {
 
 #if defined(__x86_64__)
 
-_CASCADE_INLINE _CASCADE_NODISCARD int64_t cascade_syscall0(cascade_syscall syscall) {
+_CASCADE_INLINE int64_t cascade_syscall0(cascade_syscall syscall) {
     int64_t ret;
     __asm__ volatile("syscall" : "=a"(ret) : "a"(syscall) : "memory", "rcx", "r11");
     return ret;
