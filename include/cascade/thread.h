@@ -15,6 +15,9 @@ typedef struct {
 extern "C" {
 #endif
 
+/**
+ * Exits the current thread.
+ */
 _CASCADE_NORETURN void cascade_thread_exit_current(void);
 
 #ifdef __cplusplus

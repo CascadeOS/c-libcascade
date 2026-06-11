@@ -9,6 +9,18 @@
 
 typedef uint64_t cascade_syscall;
 
+/**
+ * Exits the current thread.
+ *
+ * ### Arguments
+ * none
+ *
+ * ### Errors
+ * none
+ *
+ * ### Return
+ * never
+ */
 #define CASCADE_SYSCALL_THREAD_EXIT_CURRENT ((cascade_syscall)0)
 
 #ifdef __cplusplus
