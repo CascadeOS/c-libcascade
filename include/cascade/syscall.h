@@ -4,8 +4,7 @@
 #ifndef _CASCADE_SYSCALL_H
 #define _CASCADE_SYSCALL_H
 
-#include <cascade/internal/defines.h>
-#include <stdint.h>
+#include <cascade/internal/common.h>
 
 typedef uint64_t cascade_syscall;
 

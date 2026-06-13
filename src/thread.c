@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: 0BSD
 // SPDX-FileCopyrightText: CascadeOS Contributors
 
-#include <cascade/internal/defines.h>
+#include <cascade/internal/common.h>
 #include <cascade/syscall.h>
 #include <cascade/thread.h>
 

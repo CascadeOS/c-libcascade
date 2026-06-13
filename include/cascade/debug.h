@@ -4,8 +4,7 @@
 #ifndef _CASCADE_DEBUG_H
 #define _CASCADE_DEBUG_H
 
-#include <cascade/internal/defines.h>
-#include <stdint.h>
+#include <cascade/internal/common.h>
 
 #ifdef __cplusplus
 extern "C" {

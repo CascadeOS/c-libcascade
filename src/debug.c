@@ -2,7 +2,7 @@
 // SPDX-FileCopyrightText: CascadeOS Contributors
 
 #include <cascade/debug.h>
-#include <cascade/internal/defines.h>
+#include <cascade/internal/common.h>
 #include <cascade/syscall.h>
 
 void cascade_debug_print(uint64_t len, const uint8_t buf[_CASCADE_ARRAY_LEN(len)]) {

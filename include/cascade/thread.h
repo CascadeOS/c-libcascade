@@ -4,8 +4,7 @@
 #ifndef _CASCADE_THREAD_H
 #define _CASCADE_THREAD_H
 
-#include <cascade/internal/defines.h>
-#include <stdint.h>
+#include <cascade/internal/common.h>
 
 typedef struct {
     uint64_t handle;

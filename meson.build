@@ -60,7 +60,7 @@ if install
     )
     install_headers(
         files(
-            'include/cascade/internal/defines.h',
+            'include/cascade/internal/common.h',
         ),
         subdir: 'cascade/internal',
     )
