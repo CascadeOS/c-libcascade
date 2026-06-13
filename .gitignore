@@ -7,4 +7,3 @@ zig-out/
 zig-pkg/
 build/
 builddir/
-.vscode/

@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: CC0-1.0
+// SPDX-FileCopyrightText: CascadeOS Contributors
+{
+    "C_Cpp.default.configurationProvider": "mesonbuild.mesonbuild",
+    "mesonbuild.buildFolder": "build",
+    "[meson]": {
+        "editor.formatOnSave": true,
+    },
+    "[c]": {
+        "editor.formatOnSave": true
+    },
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c",
+    },
+    "clang-format.assumeFilename": ".clang-format",
+}
