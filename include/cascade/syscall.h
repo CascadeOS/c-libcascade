@@ -6,82 +6,87 @@
 
 #include <cascade/internal/common.h>
 
-typedef uint64_t cascade_syscall;
-
-/**
- * Exits the current thread.
- *
- * ### Arguments
- * none
- *
- * ### Errors
- * none
- *
- * ### Return
- * never
- */
-#define CASCADE_SYSCALL_THREAD_EXIT_CURRENT ((cascade_syscall)0)
-
-/**
- * Output a debug message.
- *
- * This is not intended to be used by normal userspace programs and instead is intended for logs from system libraries like libc.
- *
- * The message is assumed to be UTF-8 encoded.
- *
- * If the message does not end with a newline, one will be appended.
- *
- * No guarantees are made about the destination of the message, the implementation may choose to discard it or send it to any number of
- * destinations.
- *
- * Any errors encountered while writing the message are ignored and may cause the message to be truncated.
- *
- * ### Arguments
- * - `arg1`: length of the message
- * - `arg2`: pointer to the message
- *
- * ### Errors
- * none
- *
- * ### Return
- * undefined
- */
-#define CASCADE_SYSCALL_DEBUG_PRINT ((cascade_syscall)1)
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#if (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L) || (defined(__cplusplus) && __cplusplus >= 201103L)
+typedef enum cascade_syscall_e : uint64_t {
+#else
+typedef enum cascade_syscall_e {
+#endif
+    /**
+     * Exits the current thread.
+     *
+     * ### Arguments
+     * none
+     *
+     * ### Errors
+     * none
+     *
+     * ### Return
+     * never
+     */
+    CASCADE_SYSCALL_THREAD_EXIT_CURRENT = 0,
+
+    /**
+     * Output a debug message.
+     *
+     * This is not intended to be used by normal userspace programs and instead is intended for logs from system libraries like libc.
+     *
+     * The message is assumed to be UTF-8 encoded.
+     *
+     * If the message does not end with a newline, one will be appended.
+     *
+     * No guarantees are made about the destination of the message, the implementation may choose to discard it or send it to any number
+     of
+     * destinations.
+     *
+     * Any errors encountered while writing the message are ignored and may cause the message to be truncated.
+     *
+     * ### Arguments
+     * - `arg1`: length of the message
+     * - `arg2`: pointer to the message
+     *
+     * ### Errors
+     * none
+     *
+     * ### Return
+     * undefined
+     */
+    CASCADE_SYSCALL_DEBUG_PRINT = 1,
+} cascade_syscall;
 
 #if defined(__x86_64__)
 
 _CASCADE_INLINE int64_t cascade_syscall0(cascade_syscall syscall) {
     int64_t ret;
-    __asm__ volatile("syscall" : "=a"(ret) : "a"(syscall) : "memory", "rcx", "r11");
+    __asm__ volatile("syscall" : "=a"(ret) : "a"((uint64_t)syscall) : "memory", "rcx", "r11");
     return ret;
 }
 
 _CASCADE_INLINE int64_t cascade_syscall1(cascade_syscall syscall, uint64_t arg1) {
     int64_t ret;
-    __asm__ volatile("syscall" : "=a"(ret) : "a"(syscall), "D"(arg1) : "memory", "rcx", "r11");
+    __asm__ volatile("syscall" : "=a"(ret) : "a"((uint64_t)syscall), "D"(arg1) : "memory", "rcx", "r11");
     return ret;
 }
 
 _CASCADE_INLINE int64_t cascade_syscall2(cascade_syscall syscall, uint64_t arg1, uint64_t arg2) {
     int64_t ret;
-    __asm__ volatile("syscall" : "=a"(ret) : "a"(syscall), "D"(arg1), "S"(arg2) : "memory", "rcx", "r11");
+    __asm__ volatile("syscall" : "=a"(ret) : "a"((uint64_t)syscall), "D"(arg1), "S"(arg2) : "memory", "rcx", "r11");
     return ret;
 }
 
 _CASCADE_INLINE int64_t cascade_syscall3(cascade_syscall syscall, uint64_t arg1, uint64_t arg2, uint64_t arg3) {
     int64_t ret;
-    __asm__ volatile("syscall" : "=a"(ret) : "a"(syscall), "D"(arg1), "S"(arg2), "d"(arg3) : "memory", "rcx", "r11");
+    __asm__ volatile("syscall" : "=a"(ret) : "a"((uint64_t)syscall), "D"(arg1), "S"(arg2), "d"(arg3) : "memory", "rcx", "r11");
     return ret;
 }
 
 _CASCADE_INLINE int64_t cascade_syscall4(cascade_syscall syscall, uint64_t arg1, uint64_t arg2, uint64_t arg3, uint64_t arg4) {
     register uint64_t _rbx __asm__("rbx") = arg4;
     int64_t ret;
-    __asm__ volatile("syscall" : "=a"(ret) : "a"(syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx) : "memory", "rcx", "r11");
+    __asm__ volatile("syscall" : "=a"(ret) : "a"((uint64_t)syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx) : "memory", "rcx", "r11");
     return ret;
 }
 
@@ -90,7 +95,10 @@ cascade_syscall5(cascade_syscall syscall, uint64_t arg1, uint64_t arg2, uint64_t
     register uint64_t _rbx __asm__("rbx") = arg4;
     register uint64_t _r8 __asm__("r8") = arg5;
     int64_t ret;
-    __asm__ volatile("syscall" : "=a"(ret) : "a"(syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8) : "memory", "rcx", "r11");
+    __asm__ volatile("syscall"
+                     : "=a"(ret)
+                     : "a"((uint64_t)syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8)
+                     : "memory", "rcx", "r11");
     return ret;
 }
 
@@ -102,7 +110,7 @@ cascade_syscall6(cascade_syscall syscall, uint64_t arg1, uint64_t arg2, uint64_t
     int64_t ret;
     __asm__ volatile("syscall"
                      : "=a"(ret)
-                     : "a"(syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9)
+                     : "a"((uint64_t)syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9)
                      : "memory", "rcx", "r11");
     return ret;
 }
@@ -117,7 +125,7 @@ _CASCADE_INLINE int64_t cascade_syscall7(
     int64_t ret;
     __asm__ volatile("syscall"
                      : "=a"(ret)
-                     : "a"(syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9), "r"(_r10)
+                     : "a"((uint64_t)syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9), "r"(_r10)
                      : "memory", "rcx", "r11");
     return ret;
 }
@@ -141,7 +149,7 @@ _CASCADE_INLINE int64_t cascade_syscall8(
     int64_t ret;
     __asm__ volatile("syscall"
                      : "=a"(ret)
-                     : "a"(syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9), "r"(_r10), "r"(_r12)
+                     : "a"((uint64_t)syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9), "r"(_r10), "r"(_r12)
                      : "memory", "rcx", "r11");
     return ret;
 }
@@ -165,10 +173,12 @@ _CASCADE_INLINE int64_t cascade_syscall9(
     register uint64_t _r12 __asm__("r12") = arg8;
     register uint64_t _r13 __asm__("r13") = arg9;
     int64_t ret;
-    __asm__ volatile("syscall"
-                     : "=a"(ret)
-                     : "a"(syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9), "r"(_r10), "r"(_r12), "r"(_r13)
-                     : "memory", "rcx", "r11");
+    __asm__ volatile(
+        "syscall"
+        : "=a"(ret)
+        : "a"((uint64_t)syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9), "r"(_r10), "r"(_r12), "r"(_r13)
+        : "memory", "rcx", "r11"
+    );
     return ret;
 }
 
@@ -196,7 +206,7 @@ _CASCADE_INLINE int64_t cascade_syscall10(
     __asm__ volatile(
         "syscall"
         : "=a"(ret)
-        : "a"(syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9), "r"(_r10), "r"(_r12), "r"(_r13), "r"(_r14)
+        : "a"((uint64_t)syscall), "D"(arg1), "S"(arg2), "d"(arg3), "r"(_rbx), "r"(_r8), "r"(_r9), "r"(_r10), "r"(_r12), "r"(_r13), "r"(_r14)
         : "memory", "rcx", "r11"
     );
     return ret;
@@ -227,7 +237,7 @@ _CASCADE_INLINE int64_t cascade_syscall11(
     int64_t ret;
     __asm__ volatile("syscall"
                      : "=a"(ret)
-                     : "a"(syscall),
+                     : "a"((uint64_t)syscall),
                        "D"(arg1),
                        "S"(arg2),
                        "d"(arg3),
@@ -270,7 +280,7 @@ _CASCADE_INLINE int64_t cascade_syscall12(
     int64_t ret;
     __asm__ volatile("syscall"
                      : "=a"(ret)
-                     : "a"(syscall),
+                     : "a"((uint64_t)syscall),
                        "D"(arg1),
                        "S"(arg2),
                        "d"(arg3),

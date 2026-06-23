@@ -6,13 +6,13 @@
 
 #include <cascade/internal/common.h>
 
-typedef struct {
-    uint64_t handle;
-} cascade_thread_handle;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+typedef struct {
+    uint64_t handle;
+} cascade_thread_handle;
 
 /**
  * Exits the current thread.
