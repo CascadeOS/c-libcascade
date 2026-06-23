@@ -3,6 +3,7 @@
 {
     "recommendations": [
         "xaver.clang-format",
-        "mesonbuild.mesonbuild"
+        "mesonbuild.mesonbuild",
+        "llvm-vs-code-extensions.vscode-clangd"
     ]
 }

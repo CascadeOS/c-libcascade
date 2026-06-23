@@ -14,4 +14,8 @@
         "*.c": "c",
     },
     "clang-format.assumeFilename": ".clang-format",
+    "clangd.arguments": [
+        "-background-index",
+        "-compile-commands-dir=build"
+    ],
 }

@@ -10,6 +10,11 @@
 #define _CASCADE_CONCAT_IMPL(a, b) a##b
 #define _CASCADE_CONCAT(a, b) _CASCADE_CONCAT_IMPL(a, b)
 
+// TODO: needed to prevent a spurious warning regarding `__COUNTER___` see https://github.com/catchorg/Catch2/issues/3076
+#if defined(__clang__) && (__clang_major__ >= 22) && !defined(__APPLE__)
+_Pragma("clang diagnostic ignored \"-Wc2y-extensions\"")
+#endif
+
 #ifdef __COUNTER__
 #define _CASCADE_UID __COUNTER__
 #else
