@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: 0BSD
+# SPDX-FileCopyrightText: CascadeOS Contributors
+
+---
+Checks: >
+    -*,
+    bugprone-*,
+    -bugprone-easily-swappable-parameters,
+    -bugprone-reserved-identifier,
+    clang-*,
+    misc-*,
+    performance-*,
+    portability-*,
+    readability-*,
+
+WarningsAsErrors: '*'
