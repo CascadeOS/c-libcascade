@@ -48,8 +48,7 @@ _Pragma("clang diagnostic ignored \"-Wc2y-extensions\"")
 #elif defined(__cplusplus) && (__cplusplus >= 201103L)
 #define _CASCADE_STATIC_ASSERT(expr, msg) static_assert(expr, msg)
 #else
-#define _CASCADE_STATIC_ASSERT(expr, msg)                                                          \
-    typedef char _CASCADE_CONCAT(_cascade_assert_, _CASCADE_UID)[(expr) ? 1 : -1]
+#define _CASCADE_STATIC_ASSERT(expr, msg) typedef char _CASCADE_CONCAT(_cascade_assert_, _CASCADE_UID)[(expr) ? 1 : -1]
 #endif
 
 #if defined(__GNUC__) || defined(__clang__)

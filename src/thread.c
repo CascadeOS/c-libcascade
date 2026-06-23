@@ -10,10 +10,5 @@ _CASCADE_NORETURN void cascade_thread_exit_current(void) {
     _CASCADE_UNREACHABLE();
 }
 
-_CASCADE_STATIC_ASSERT(
-    sizeof(cascade_thread_handle) == sizeof(uint64_t), "thread handle size mismatch"
-);
-_CASCADE_STATIC_ASSERT(
-    _CASCADE_ALIGNOF(cascade_thread_handle) == _CASCADE_ALIGNOF(uint64_t),
-    "thread handle alignment mismatch"
-);
+_CASCADE_STATIC_ASSERT(sizeof(cascade_thread_handle) == sizeof(uint64_t), "thread handle size mismatch");
+_CASCADE_STATIC_ASSERT(_CASCADE_ALIGNOF(cascade_thread_handle) == _CASCADE_ALIGNOF(uint64_t), "thread handle alignment mismatch");
